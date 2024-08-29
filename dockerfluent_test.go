@@ -17,13 +17,6 @@ import (
 func ExampleDockerFluent_DeployNginx() {
 	ctx := context.Background()
 
-	if err := os.Setenv(
-		"OPENAI_API_KEY",
-		"YOUR_OPENAI_API_KEY",
-	); err != nil {
-		panic(err)
-	}
-
 	dockerF, err := New("unix:///Users/vinodhalaharvi/.docker/run/docker.sock") // Or specify your Docker socket path if known
 	if err != nil {
 		log.Fatalf("Error creating dockerfluent.DockerFluent client: %v", err)
@@ -68,18 +61,14 @@ func ExampleDockerFluent_DeployNginx() {
 
 	// Cleanup
 	dockerF.StopContainer(ctx, "example-nginx").RemoveContainer(ctx, "example-nginx")
+
+	// Output:
+	// Deploying Nginx container...
 }
 
 // ExampleDockerFluent_BuildCustomImage demonstrates building a custom image and running a container from it
 func ExampleDockerFluent_BuildCustomImage() {
 	ctx := context.Background()
-
-	if err := os.Setenv(
-		"OPENAI_API_KEY",
-		"YOUR_OPENAI_API_KEY",
-	); err != nil {
-		panic(err)
-	}
 
 	dockerF, err := New() // Or specify your Docker socket path if known
 	if err != nil {
@@ -131,17 +120,13 @@ CMD ["./main"]
 
 	// Cleanup
 	dockerF.StopContainer(ctx, "custom-go-app").RemoveContainer(ctx, "custom-go-app")
+
+	// Output:
+	// Building custom image and deploying container...
 }
 
 func ExampleDockerFluent_DeployMultiContainerApp() {
 	ctx := context.Background()
-
-	if err := os.Setenv(
-		"OPENAI_API_KEY",
-		"YOUR_OPENAI_API_KEY",
-	); err != nil {
-		panic(err)
-	}
 
 	dockerF, err := New() // Or specify your Docker socket path if known
 	if err != nil {
@@ -225,18 +210,13 @@ func ExampleDockerFluent_DeployMultiContainerApp() {
 		RemoveContainer(ctx, "example-nginx").
 		RemoveContainer(ctx, "example-redis").
 		RemoveNetwork(ctx, "example-network")
+	// Output:
+	// Deploying multi-container application...
 }
 
 // ExampleDockerFluent_DeployDatabaseCluster demonstrates deploying a cluster of database containers
 func ExampleDockerFluent_DeployDatabaseCluster() {
 	ctx := context.Background()
-
-	if err := os.Setenv(
-		"OPENAI_API_KEY",
-		"YOUR_OPENAI_API_KEY",
-	); err != nil {
-		panic(err)
-	}
 
 	dockerF, err := New() // Or specify your Docker socket path if known
 	if err != nil {
@@ -312,18 +292,14 @@ func ExampleDockerFluent_DeployDatabaseCluster() {
 		dockerF.StopContainer(ctx, containerName).RemoveContainer(ctx, containerName)
 	}
 	dockerF.RemoveNetwork(ctx, "db-cluster-network")
+
+	// Output:
+	// Deploying database cluster...
 }
 
 // ExampleDockerFluent_ManageMicroservices demonstrates managing a set of microservices
 func ExampleDockerFluent_ManageMicroservices() {
 	ctx := context.Background()
-
-	if err := os.Setenv(
-		"OPENAI_API_KEY",
-		"YOUR_OPENAI_API_KEY",
-	); err != nil {
-		panic(err)
-	}
 
 	dockerF, err := New() // Or specify your Docker socket path if known
 	if err != nil {
@@ -407,18 +383,15 @@ func ExampleDockerFluent_ManageMicroservices() {
 	for _, svc := range services {
 		dockerF.StopContainer(ctx, svc.name).RemoveContainer(ctx, svc.name)
 	}
+
+	// Output:
+	// Managing microservices...
+
 }
 
 // ExampleDockerFluent_MonitorContainers demonstrates monitoring and analyzing container metrics
 func ExampleDockerFluent_MonitorContainers() {
 	ctx := context.Background()
-
-	if err := os.Setenv(
-		"OPENAI_API_KEY",
-		"YOUR_OPENAI_API_KEY",
-	); err != nil {
-		panic(err)
-	}
 
 	dockerF, err := New() // Or specify your Docker socket path if known
 	if err != nil {
@@ -503,4 +476,8 @@ func ExampleDockerFluent_MonitorContainers() {
 	dockerF.AIChain(ctx, "Analyze the container metrics and suggest optimizations for resource usage.", processAIResponse)
 
 	fmt.Println("Container monitoring and analysis completed successfully!")
+
+	// Output:
+	// Monitoring containers...
+
 }
